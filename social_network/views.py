@@ -6,6 +6,9 @@ from .models import User, Post
 def index(req):
     return render(req, "index.html")
 
+def login_page(req):
+    return render(req, "login.html")
+
 def register(req):
     validation_errors = User.objects.regValidator(req.POST)
     if len(validation_errors) > 0:
@@ -36,7 +39,7 @@ def login(req):
     if len(validation_errors) > 0:
         for value in validation_errors.values():
             messages.error(req, value)
-        return redirect("/")
+        return redirect("/login_page")
     else:
         email_match = User.objects.filter(email = req.POST['email'])
         req.session['logged_id'] = email_match[0].id

@@ -39,7 +39,7 @@ class UserManager(models.Manager):
             if bcrypt.checkpw(post_data['pw'].encode(), email_match[0].password.encode()):
                 print("Password match")
             else:
-                errors['pw_check'] = "Incorrect password."
+                errors['pw_check'] = "Please enter a valid password."
         return errors
 
 class PostManager(models.Manager):

@@ -29,30 +29,12 @@
                     </ul>
                     {% endif %}
                 </div>
-                <div class="row">
+                <div class="row my-5">
                     <div class="col col-lg-4 mx-auto">
-                        <form action="/register" method="post">
-                            <h2 class="mb-3">Register</h2>
-                            <p class="text-muted text-center mb-4">
-                                Create your free account today!
-                            </p>
+                        <form action="/login" method="post">
+                            <h2 class="mb-4">Login</h2>
+
                             {% csrf_token %}
-                            <div class="form-group">
-                                <input
-                                    type="text"
-                                    name="first_name"
-                                    class="form-control"
-                                    placeholder="First Name"
-                                />
-                            </div>
-                            <div class="form-group">
-                                <input
-                                    type="text"
-                                    name="last_name"
-                                    class="form-control"
-                                    placeholder="Last Name"
-                                />
-                            </div>
                             <div class="form-group">
                                 <input
                                     type="text"
@@ -70,23 +52,15 @@
                                 />
                             </div>
                             <div class="form-group">
-                                <input
-                                    type="password"
-                                    name="c_pw"
-                                    class="form-control"
-                                    placeholder="Confirm Password"
-                                />
-                            </div>
-                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    Log In
                                 </button>
                             </div>
                         </form>
                         <p class="text-center">
                             <small
-                                >already a member?
-                                <a href="/login_page">Login</a></small
+                                >need an account?
+                                <a href="/">Register</a></small
                             >
                         </p>
                     </div>
