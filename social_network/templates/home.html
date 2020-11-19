@@ -20,7 +20,9 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="/home">SYT</a>
+                <a class="navbar-brand" href="/home"
+                    ><em>Share Your Thoughts</em></a
+                >
                 <button
                     class="navbar-toggler"
                     type="button"
@@ -53,82 +55,109 @@
         </header>
         <div class="container">
             <div class="row my-5">
-                <div class="col">
-                    <h1>Welcome, {{ logged_user.first_name }}</h1>
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <li class="text-danger">{{message}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <div class="col col-lg-8 mx-auto">
+                    <form
+                        class="form-inline"
+                        action="/create_post"
+                        method="post"
+                    >
+                        {% csrf_token %}
+                        <label class="sr-only" for="inlineFormInputThoughts2"
+                            >Share your thoughts here</label
+                        >
+                        <input
+                            type="text"
+                            name="post_content"
+                            class="form-control col-lg-10 mb-2 mr-sm-2"
+                            id="inlineFormInputThoughts2"
+                            placeholder="What would you like to share, {{logged_user.first_name}}?"
+                        />
+
+                        <button type="submit" class="btn btn-primary mb-2">
+                            Submit
+                        </button>
+                    </form>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col">
-                    <h3>Posts You Like:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Post Content</th>
-                                <th>Posted By</th>
-                                <th>Date Posted</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for post_object in liked_posts %}
-                            <tr>
-                                <td>
-                                    <a href="/posts/{{post_object.id}}"
-                                        >{{post_object.content}}</a
-                                    >
-                                </td>
-                                <td class="text-capitalize">
-                                    {{post_object.uploader.first_name}}
-                                </td>
-                                <td>{{post_object.created_at}}</td>
-                                <td>
-                                    <a href="/unlike/{{post_object.id}}"
-                                        >Unlike</a
-                                    >
-                                    {% if post_object.uploader == logged_user %}
-                                    <a href="/delete/{{post_object.id}}"
-                                        >Delete</a
-                                    >
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <h2>Favorites</h2>
+                    {% for post_object in liked_posts %}
+                    <div class="card mb-4">
+                        <h3 class="card-header">
+                            {{post_object.uploader.first_name}}
+                        </h3>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                <small
+                                    ><a href="/posts/{{post_object.id}}"
+                                        >{{post_object.created_at}}</a
+                                    ></small
+                                >
+                            </p>
 
-                    <h3>Other Posts:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Post Content</th>
-                                <th>Posted By</th>
-                                <th>Date Posted</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for post_object in other_posts %}
-                            <tr>
-                                <td>
-                                    <a href="/posts/{{post_object.id}}"
-                                        >{{post_object.content}}</a
-                                    >
-                                </td>
-                                <td class="text-capitalize">
-                                    {{post_object.uploader.first_name}}
-                                </td>
-                                <td>{{post_object.created_at}}</td>
-                                <td>
-                                    <a href="/like/{{post_object.id}}">Like</a>
-                                    <a href=""></a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            <p class="card-text">{{post_object.content}}</p>
+
+                            <div class="card-footer">
+                                <a href="/unlike/{{post_object.id}}">Unlike</a>
+                                {% if post_object.uploader == logged_user %}
+                                <a href="/delete/{{post_object.id}}">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="col">
+                    <h2>Timeline</h2>
+                    {% for post_object in other_posts %}
+                    <div class="card mb-4">
+                        <h3 class="card-header">
+                            {{post_object.uploader.first_name}}
+                        </h3>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                <small
+                                    ><a href="/posts/{{post_object.id}}"
+                                        >{{post_object.created_at}}</a
+                                    ></small
+                                >
+                            </p>
+
+                            <p class="card-text">{{post_object.content}}</p>
+
+                            <div class="card-footer">
+                                <a href="/like/{{post_object.id}}">Like</a>
+                                {% if post_object.uploader == logged_user %}
+                                <a href="/delete/{{post_object.id}}">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
+
+            {% comment %} END OF CONTAINER {% endcomment %}
         </div>
+
+        <footer>
+            <nav class="navbar fixed-bottom navbar-dark bg-dark">
+                <a class="navbar-brand" href="#!">&copy; Jonathan Kohen 2020</a>
+            </nav>
+        </footer>
 
         <script
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

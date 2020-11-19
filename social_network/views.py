@@ -25,12 +25,25 @@ def home(req):
     if 'logged_id' not in req.session:
         messages.error(req, "Login required.")
         return redirect('/')
+
+    all_posts = Post.objects.all()
+    liked_posts = Post.objects.filter(likes= User.objects.get(id = req.session['logged_id']))
+    logged_user = User.objects.get(id = req.session['logged_id'])
+
+    #loop each post
+    for post in all_posts:
+        # loop through logged in user's liked posts
+        for like in liked_posts:
+            # if post.id is the same as like.id
+            if logged_user.id == like.id:
+                print(logged_user.id, like.id)
+                
+
     context = {
         'logged_user': User.objects.get(id = req.session['logged_id']),
         "all_posts": Post.objects.all(),
         "liked_posts": Post.objects.filter(likes= User.objects.get(id = req.session['logged_id'])),
         "other_posts": Post.objects.exclude(likes= User.objects.get(id = req.session['logged_id'])),
-
     }
     return render(req, 'home.html', context)
 

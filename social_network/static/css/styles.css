@@ -5,11 +5,17 @@
     --mint: #aaf0d2;
     --purple: #8d90d9;
     --dark-purple: #7575d0;
+    --text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.4),
+        0px 2px 3px rgba(0, 0, 0, 0.1), 0px 6px 8px rgba(0, 0, 0, 0.1);
 }
 
 body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(to right, var(--blue), var(--mint));
+}
+
+.navbar-brand {
+    font-size: medium;
 }
 
 nav form {
@@ -30,6 +36,11 @@ nav form {
 #logout:hover {
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
+}
+
+h1 {
+    text-shadow: var(--text-shadow);
+    color: white;
 }
 
 h2 {
