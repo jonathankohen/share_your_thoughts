@@ -18,6 +18,10 @@ body {
     font-size: medium;
 }
 
+.navbar_logo {
+    width: 175px;
+}
+
 nav form {
     color: #999;
     border-radius: 3px;
@@ -36,6 +40,11 @@ nav form {
 #logout:hover {
     color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
+}
+
+#home_logo {
+    max-width: 100%;
+    height: auto;
 }
 
 h1 {

@@ -63,7 +63,7 @@ def logout(req):
     return redirect("/")
 
 def add_post(req):
-    return render(req, "add_post.html")
+    return redirect("/home")
 
 def create_post(req):
     validation_errors = Post.objects.post_validator(req.POST)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Post</title>
+        <title>Share Your Thoughts</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width initial-scale=1.0" />
         <link
@@ -10,22 +10,100 @@
             integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
             crossorigin="anonymous"
         />
+        {% load static %}
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'css/styles.css' %}"
+        />
+        {% load static %}
+        <link rel="shortcut icon" href="{%  static 'images/favicon.ico' %}" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="{% static 'images/apple-touch-icon.png' %}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="{% static 'images/favicon-32x32.png' %}"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="{% static 'images/favicon-16x16.png' %}"
+            href="/f"
+        />
+        <link rel="manifest" href="{% static 'images/site.webmanifest' %}" />
+        <link
+            rel="mask-icon"
+            href="{% static 'images/safari-pinned-tab.svg' %}"
+            color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#2b5797" />
+        <meta name="theme-color" content="#ffffff" />
     </head>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            {% load static %}
+            <img
+                src="{% static 'images/navbar_logo.png' %}"
+                alt="Logo"
+                class="navbar_logo"
+            />
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                </ul>
+                <a id="logout" href="/logout">Logout</a>
+            </div>
+        </nav>
+    </header>
     <body>
         <div class="container">
             <div class="row my-5">
-                <div class="col-6 mx-auto">
-                    <h1>Post Info: {{post_object.id}}</h1>
-                    <p>Content: {{post_object.content}}</p>
-                    <p>{{post_object.likes.all.count}} people like this</p>
-                    <ul>
-                        {% for user_object in post_object.likes.all %}
-                        <li>{{user_object.first_name}}</li>
-                        {% endfor %}
-                    </ul>
+                <div class="col-lg-10 mx-auto">
+                    <div class="jumbotron">
+                        <h2 class="mb-5">
+                            Posted by: {{post_object.uploader.first_name}}
+                        </h2>
+                        <p class="lead">{{post_object.content}}</p>
+                        <hr class="my-2" />
+                        <p>{{post_object.likes.all.count}} people like this:</p>
+                        <ul>
+                            {% for user_object in post_object.likes.all %}
+                            <li>{{user_object.first_name}}</li>
+                            {% endfor %}
+                        </ul>
+                        <p class="text-muted">{{post_object.created_at}}</p>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <footer>
+            <nav class="navbar fixed-bottom navbar-dark bg-dark">
+                <a class="navbar-brand" href="https://github.com/jonathankohen"
+                    >&copy; <small>Jonathan Kohen 2020</small></a
+                >
+            </nav>
+        </footer>
 
         <script
             src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
